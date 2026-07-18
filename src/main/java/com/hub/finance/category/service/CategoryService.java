@@ -3,6 +3,7 @@ package com.hub.finance.category.service;
 import com.hub.finance.category.dto.CategoryRequestDTO;
 import com.hub.finance.category.dto.CategoryResponseDTO;
 import com.hub.finance.category.entity.CategoryEntity;
+import com.hub.finance.category.exception.CategoryNotFoundException;
 import com.hub.finance.category.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,17 @@ public class CategoryService {
                         categoryEntity.getDescription()
                 ))
                 .toList();
+    }
+
+    public CategoryResponseDTO findById(UUID id) {
+
+        CategoryEntity categoryEntity = repository.findById(id)
+                .orElseThrow(CategoryNotFoundException::new);
+
+        return new CategoryResponseDTO(
+                categoryEntity.getId(),
+                categoryEntity.getName(),
+                categoryEntity.getDescription()
+        );
     }
 }

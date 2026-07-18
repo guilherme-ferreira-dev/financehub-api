@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/categories")
@@ -32,6 +33,14 @@ public class CategoryController {
         List<CategoryResponseDTO> categories = categoryService.findAll();
 
         return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> findById(@PathVariable UUID id) {
+
+        CategoryResponseDTO categoryResponseDTO = categoryService.findById(id);
+
+        return ResponseEntity.ok(categoryResponseDTO);
     }
 
 }
