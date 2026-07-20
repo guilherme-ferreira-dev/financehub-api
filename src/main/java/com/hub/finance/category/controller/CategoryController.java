@@ -2,6 +2,7 @@ package com.hub.finance.category.controller;
 
 import com.hub.finance.category.dto.CategoryRequestDTO;
 import com.hub.finance.category.dto.CategoryResponseDTO;
+import com.hub.finance.category.dto.UpdateCategoryRequest;
 import com.hub.finance.category.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,22 @@ public class CategoryController {
         CategoryResponseDTO categoryResponseDTO = categoryService.findById(id);
 
         return ResponseEntity.ok(categoryResponseDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable UUID id, @RequestBody UpdateCategoryRequest request) {
+
+        categoryService.update(id, request);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+
+        categoryService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

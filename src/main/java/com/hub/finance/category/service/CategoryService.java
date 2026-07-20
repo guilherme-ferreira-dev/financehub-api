@@ -2,6 +2,7 @@ package com.hub.finance.category.service;
 
 import com.hub.finance.category.dto.CategoryRequestDTO;
 import com.hub.finance.category.dto.CategoryResponseDTO;
+import com.hub.finance.category.dto.UpdateCategoryRequest;
 import com.hub.finance.category.entity.CategoryEntity;
 import com.hub.finance.category.exception.CategoryNotFoundException;
 import com.hub.finance.category.repository.CategoryRepository;
@@ -57,5 +58,23 @@ public class CategoryService {
                 categoryEntity.getName(),
                 categoryEntity.getDescription()
         );
+    }
+
+    public void update(UUID id, UpdateCategoryRequest request)  {
+
+        CategoryEntity categoryEntity = repository.findById(id)
+                .orElseThrow(CategoryNotFoundException::new);
+
+        categoryEntity.setName(request.name());
+        categoryEntity.setDescription(request.description());
+
+        repository.save(categoryEntity);
+    }
+
+    public void delete(UUID id) {
+        CategoryEntity categoryEntity = repository.findById(id)
+                .orElseThrow(CategoryNotFoundException::new);
+
+        repository.delete(categoryEntity);
     }
 }
