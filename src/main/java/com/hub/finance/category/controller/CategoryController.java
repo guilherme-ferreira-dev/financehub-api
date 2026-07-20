@@ -4,6 +4,7 @@ import com.hub.finance.category.dto.CategoryRequestDTO;
 import com.hub.finance.category.dto.CategoryResponseDTO;
 import com.hub.finance.category.dto.UpdateCategoryRequest;
 import com.hub.finance.category.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody CategoryRequestDTO requestDTO) {
+    public ResponseEntity<Void> create(@Valid @RequestBody CategoryRequestDTO requestDTO) {
         categoryService.create(requestDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -45,7 +46,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable UUID id, @RequestBody UpdateCategoryRequest request) {
+    public ResponseEntity<Void> update(@PathVariable UUID id, @Valid @RequestBody UpdateCategoryRequest request) {
 
         categoryService.update(id, request);
 
